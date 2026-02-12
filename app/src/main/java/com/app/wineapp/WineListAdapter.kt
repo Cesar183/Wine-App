@@ -1,5 +1,6 @@
 package com.app.wineapp
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,10 +8,15 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.app.wineapp.databinding.ItemWineBinding
+import com.bumptech.glide.Glide
 
 class WineListAdapter : ListAdapter<Wine, RecyclerView.ViewHolder>(WineDiff()) {
+
+    private lateinit var context: Context
+
     override fun onCreateViewHolder(parent: ViewGroup,viewType: Int): RecyclerView.ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_wine, parent, false))
+        context = parent.context
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_wine, parent, false))
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder,position: Int) {
@@ -21,6 +27,10 @@ class WineListAdapter : ListAdapter<Wine, RecyclerView.ViewHolder>(WineDiff()) {
                 tvWinery.text = wine.winery
                 tvLocation.text = wine.location
                 rating.rating = wine.rating.average.toFloat()
+
+                Glide.with(context)
+                    .load(wine.image)
+                    .into(imgWine)
             }
         }
     }
