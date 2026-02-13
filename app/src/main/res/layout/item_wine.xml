@@ -2,10 +2,10 @@
 <com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_marginTop="@dimen/common_space_min"
-    android:layout_margin="@dimen/common_space_min"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/common_space_min"
+    android:layout_marginTop="@dimen/common_space_min">
 
     <ImageView
         android:id="@+id/imgWine"
@@ -37,38 +37,37 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/common_space_middle"
+            android:background="@drawable/background_item_text"
             android:orientation="vertical"
             android:paddingHorizontal="@dimen/common_space_min"
-            android:layout_marginTop="@dimen/common_space_middle"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:background="@drawable/background_item_text"
             app:layout_constraintTop_toBottomOf="@id/rating">
 
             <TextView
                 android:id="@+id/tvWine"
-                android:textSize="24sp"
-                android:textStyle="bold"
-
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="24sp"
+                android:textStyle="bold"
                 tools:text="Wine" />
 
 
             <TextView
                 android:id="@+id/tvWinery"
-                android:textSize="20sp"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="20sp"
                 tools:text="Winery" />
 
 
             <TextView
                 android:id="@+id/tvLocation"
-                android:textColor="@color/white"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 tools:text="Location" />
 
         </LinearLayout>
