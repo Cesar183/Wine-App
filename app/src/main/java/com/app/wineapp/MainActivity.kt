@@ -6,6 +6,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.app.wineapp.databinding.ActivityMainBinding
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setupAdapter()
         setupRecyclerView()
         setupRetrofit()
+        setupSwipeRefresh()
     }
 
     private fun setupAdapter() {
@@ -39,6 +41,14 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    // metodo para hacer refresh de pantalla
+    private fun setupSwipeRefresh() {
+        binding.srlWines.setOnRefreshListener {
+            adapter.submitList(listOf())
+            getWine()
+        }
+    }
+
     private fun setupRetrofit(){
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
@@ -49,10 +59,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun getWine(){
         lifecycleScope.launch(Dispatchers.IO) {
-            //val wines = getLocalWines()
-            val wines = service.getRedsWines()
-            withContext(Dispatchers.Main){
-                adapter.submitList(wines)
+            try {//val wines = getLocalWines()
+                val wines = service.getRedsWines()
+                withContext(Dispatchers.Main){
+                    if (wines.isNotEmpty()){
+                        adapter.submitList(wines)
+                    } else {
+                        Snackbar.make(binding.root, ":(", Snackbar.LENGTH_SHORT).show()
+                    }
+                }
+            } catch (e: Exception) {
+                TODO("Not yet implemented")
+            } finally {
+                binding.srlWines.isRefreshing = false
             }
         }
     }

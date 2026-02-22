@@ -12,6 +12,7 @@ constraintlayout = "2.2.1"
 glideV = "5.0.5"
 retrofitV = "3.0.0"
 retrofitConverterV = "3.0.0"
+swipeRefreshLayoutV = "1.2.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -23,8 +24,9 @@ material = { group = "com.google.android.material", name = "material", version.r
 androidx-activity = { group = "androidx.activity", name = "activity", version.ref = "activity" }
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraintlayout" }
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glideV" }
-retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitV"}
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofitV" }
 converter = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofitConverterV" }
+swipeRefreshLayout = { group = "androidx.swiperefreshlayout", name = "swiperefreshlayout", version.ref = "swipeRefreshLayoutV" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
