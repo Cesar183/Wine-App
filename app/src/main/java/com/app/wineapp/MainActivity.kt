@@ -1,6 +1,7 @@
 package com.app.wineapp
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupRetrofit(){
+    private fun setupRetrofit() {
         val retrofit = Retrofit.Builder()
             .baseUrl(Constants.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
@@ -57,23 +58,34 @@ class MainActivity : AppCompatActivity() {
         service = retrofit.create(WineService::class.java)
     }
 
-    private fun getWine(){
+    private fun getWine() {
         lifecycleScope.launch(Dispatchers.IO) {
             try {//val wines = getLocalWines()
                 val wines = service.getRedsWines()
-                withContext(Dispatchers.Main){
-                    if (wines.isNotEmpty()){
+                withContext(Dispatchers.Main) {
+                    if (wines.isNotEmpty()) {
+                        showRecyclerView(true)
+                        showTvNoDate(false)
                         adapter.submitList(wines)
                     } else {
-                        Snackbar.make(binding.root, ":(", Snackbar.LENGTH_SHORT).show()
+                        showRecyclerView(false)
+                        showTvNoDate(true)
                     }
                 }
             } catch (e: Exception) {
-                TODO("Not yet implemented")
+                Snackbar.make(binding.root, "Error al cargar", Snackbar.LENGTH_SHORT).show()
             } finally {
                 binding.srlWines.isRefreshing = false
             }
         }
+    }
+
+    private fun showRecyclerView(isVisible: Boolean) {
+        binding.recyclerView.visibility = if (isVisible) View.VISIBLE else View.GONE
+    }
+
+    private fun showTvNoDate(isVisible: Boolean) {
+        binding.tvNoDate.visibility = if (isVisible) View.VISIBLE else View.GONE
     }
 
     private fun getLocalWines() = listOf(
